@@ -20,6 +20,9 @@ from map_generator import GetMissionXML
 from RL_DQN import QNetwork, Hyperparameters, get_action, prepare_batch, learn, log_returns
 from get_observation import get_observation
 from init_malmo import init_malmo
+from vision import frame_process
+
+os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 def main(agent_host):
     
@@ -61,7 +64,7 @@ def main(agent_host):
 
             agent_host.sendCommand(command)
 
-            time.sleep(.1)
+            time.sleep(.2)
 
             episode_step += 1
             if episode_step >= Hyperparameters.MAX_EPISODE_STEPS or \
@@ -71,6 +74,7 @@ def main(agent_host):
                 time.sleep(2)  
 
             world_state = agent_host.getWorldState()
+            frame_process(world_state.video_frames[0].pixels, global_step)
             for error in world_state.errors:
                 print("Error:", error.text)
             next_obs = get_observation(world_state, agent_host) 

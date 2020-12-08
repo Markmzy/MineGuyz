@@ -73,13 +73,21 @@ def GetMissionXML(SIZE , OBS_SIZE, MAX_EPISODE_STEPS):
                     <Placement x="0.5" y="10" z="0.5" yaw="0"/>
                 </AgentStart>
                 <AgentHandlers>
+                <VideoProducer want_depth="true">
+                  <Width>512</Width>
+                  <Height>512</Height>
+                   </VideoProducer>
                   <DiscreteMovementCommands/>
                   <ObservationFromFullStats/>
                   <ObservationFromGrid>
-                            <Grid name="floorAll">
-                                <min x="-'''+str(int(OBS_SIZE/2))+'''" y="-1" z="-'''+str(int(OBS_SIZE/2))+'''"/>
-                                <max x="'''+str(int(OBS_SIZE/2))+'''" y="0" z="'''+str(int(OBS_SIZE/2))+'''"/>
-                            </Grid>
+                    <Grid name="floorAll">
+                        <min x="-'''+str(int(OBS_SIZE/2))+'''" y="-1" z="-'''+str(int(OBS_SIZE/2))+'''"/>
+                        <max x="'''+str(int(OBS_SIZE/2))+'''" y="0" z="'''+str(int(OBS_SIZE/2))+'''"/>
+                    </Grid>
+                    <Grid name="floorAllTwo">
+                      <min x="-10" y="-1" z="-10"/>
+                      <max x="10" y="-1" z="10"/>
+                    </Grid>
                   </ObservationFromGrid>
                   <AgentQuitFromReachingCommandQuota total="'''+str(MAX_EPISODE_STEPS)+'''" />
                   <RewardForTouchingBlockType>

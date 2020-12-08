@@ -55,7 +55,6 @@ class QNetwork(nn.Module):
         
     def forward(self, obs):
         batch_size = obs.shape[0]
-        print(batch_size)
         obs = self.cnn(obs)
         obs_flat = obs.view(batch_size, -1)
         return self.linear(obs_flat)
