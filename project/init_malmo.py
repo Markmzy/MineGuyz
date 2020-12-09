@@ -9,7 +9,8 @@ import time
 def init_malmo(agent_host,recordingsDirectory, video_width, video_height):
     
     my_mission = MalmoPython.MissionSpec(GetMissionXML(Hyperparameters.SIZE, Hyperparameters.OBS_SIZE, Hyperparameters.MAX_EPISODE_STEPS, video_width ,video_height), True)
-    
+    my_mission.setViewpoint(0)
+
     agent_host.setObservationsPolicy(MalmoPython.ObservationsPolicy.LATEST_OBSERVATION_ONLY)
     agent_host.setVideoPolicy(MalmoPython.VideoPolicy.LATEST_FRAME_ONLY)
     

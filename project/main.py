@@ -4,6 +4,7 @@ except:
     import MalmoPython
 
 import os
+import glob
 import sys
 import time
 import json
@@ -20,7 +21,7 @@ from map_generator_final import GetMissionXML
 from RL_DQN import QNetwork, Hyperparameters, get_action, prepare_batch, learn, log_returns
 from get_observation import get_observation
 from init_malmo import init_malmo
-from vision import frame_process
+from vision import view_surrounding, clear_images
 import malmoutils
 from past.utils import old_div
 
@@ -100,6 +101,8 @@ video_width = 800
 video_height = 400
 
 def main(agent_host):
+    
+    clear_images()
     malmoutils.fix_print()
     malmoutils.parse_command_line(agent_host)
     recordingsDirectory = malmoutils.get_recordings_directory(agent_host)
@@ -124,7 +127,8 @@ def main(agent_host):
     
     
     
-    
+    result_dataset = []
+    print("Global Step", Hyperparameters.MAX_GLOBAL_STEPS)
     while global_step < Hyperparameters.MAX_GLOBAL_STEPS:
         episode_step = 0
         episode_return = 0
@@ -153,7 +157,7 @@ def main(agent_host):
 
             if world_state.is_mission_running:
                 processFrame(world_state.video_frames[0].pixels)
-                print("Yaw Delta ", current_yaw_delta_from_depth)  
+                #print("Yaw Delta ", current_yaw_delta_from_depth)  
                 #agent_host.sendCommand( "turn " + str(current_yaw_delta_from_depth) )
             
             
@@ -175,7 +179,7 @@ def main(agent_host):
                 time.sleep(2)  
 
             world_state = agent_host.getWorldState()
-            frame_process(world_state.video_frames[0].pixels, global_step)
+            result_dataset.append(view_surrounding(video_height, video_width, world_state.video_frames[0].pixels, global_step))
             for error in world_state.errors:
                 print("Error:", error.text)
             next_obs = get_observation(world_state, agent_host) 
@@ -189,6 +193,10 @@ def main(agent_host):
             obs = next_obs
 
             global_step += 1
+            print(global_step)
+            if global_step == Hyperparameters.MAX_GLOBAL_STEPS:
+                break
+
             if global_step > Hyperparameters.START_TRAINING and global_step % Hyperparameters.LEARN_FREQUENCY == 0:
                 batch = prepare_batch(replay_buffer)
                 loss = learn(batch, optim, q_network, target_network)
@@ -214,6 +222,11 @@ def main(agent_host):
         if num_episode > 0 and num_episode % 10 == 0:
             log_returns(steps, loss_array)
             print()
+
+    print(len(result_dataset))
+    np.save("images/image_labels",np.array(result_dataset))
+    print('Labels Saved')
+        
 
 if __name__ == '__main__':
     
