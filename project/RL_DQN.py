@@ -22,7 +22,7 @@ import math
 class Hyperparameters:
     SIZE = 40
     OBS_SIZE = 9
-    MAX_EPISODE_STEPS = 100
+    MAX_EPISODE_STEPS = 1000
     MAX_GLOBAL_STEPS = 10000
     REPLAY_BUFFER_SIZE = 10000
     EPSILON_DECAY = .999

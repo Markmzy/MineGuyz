@@ -6,10 +6,25 @@ from map_generator_final import GetMissionXML
 from RL_DQN import QNetwork, Hyperparameters, get_action, prepare_batch, learn, log_returns
 import time
 
-def init_malmo(agent_host):
-
-    my_mission = MalmoPython.MissionSpec(GetMissionXML(Hyperparameters.SIZE, Hyperparameters.OBS_SIZE, Hyperparameters.MAX_EPISODE_STEPS), True)
+def init_malmo(agent_host,recordingsDirectory, video_width, video_height):
+    
+    my_mission = MalmoPython.MissionSpec(GetMissionXML(Hyperparameters.SIZE, Hyperparameters.OBS_SIZE, Hyperparameters.MAX_EPISODE_STEPS, video_width ,video_height), True)
+    
+    agent_host.setObservationsPolicy(MalmoPython.ObservationsPolicy.LATEST_OBSERVATION_ONLY)
+    agent_host.setVideoPolicy(MalmoPython.VideoPolicy.LATEST_FRAME_ONLY)
+    
     my_mission_record = MalmoPython.MissionRecordSpec()
+
+
+    if recordingsDirectory:
+        my_mission_record.recordRewards()
+        my_mission_record.recordObservations()
+        my_mission_record.recordCommands()
+        if agent_host.receivedArgument("record_video"):
+            my_mission_record.recordMP4(24,2000000)
+
+    if recordingsDirectory:
+        my_mission_record.setDestination(recordingsDirectory + "//" + "Mission_" + str(test + 1) + ".tgz")
 
     max_retries = 3
     my_clients = MalmoPython.ClientPool()

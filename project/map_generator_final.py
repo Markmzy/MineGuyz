@@ -3,7 +3,7 @@ blocktype = ["gold_block", "emerald_block"]
 color = ["WHITE", "MAGENTA", "LIGHT_BLUE", "YELLOW", "LIME", "CYAN", "PURPLE", "BLUE", "BROWN", "GREEN", "RED"]
 
 
-def GetMissionXML(SIZE , OBS_SIZE, MAX_EPISODE_STEPS):
+def GetMissionXML(SIZE , OBS_SIZE, MAX_EPISODE_STEPS, video_width, video_height):
   WIDTH = 10 
   myxml = ""
 
@@ -53,7 +53,7 @@ def GetMissionXML(SIZE , OBS_SIZE, MAX_EPISODE_STEPS):
             <ServerSection>
               <ServerInitialConditions>
                 <Time>
-                    <StartTime>7000</StartTime>
+                    <StartTime>10000</StartTime>
                     <AllowPassageOfTime>false</AllowPassageOfTime>
                 </Time>
                 <Weather>clear</Weather>
@@ -107,6 +107,10 @@ def GetMissionXML(SIZE , OBS_SIZE, MAX_EPISODE_STEPS):
                     <Placement x="0.5" y="10" z="0.5" yaw="0"/>
                 </AgentStart>
                 <AgentHandlers>
+                  <VideoProducer want_depth="true">
+                    <Width>''' + str(video_width) + '''</Width>
+                    <Height>''' + str(video_height) + '''</Height>
+                  </VideoProducer>
                   <DiscreteMovementCommands/>
                   <ObservationFromFullStats/>
                   <ObservationFromGrid>

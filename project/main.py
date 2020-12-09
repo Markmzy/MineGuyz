@@ -21,11 +21,89 @@ from RL_DQN import QNetwork, Hyperparameters, get_action, prepare_batch, learn, 
 from get_observation import get_observation
 from init_malmo import init_malmo
 from vision import frame_process
+import malmoutils
+from past.utils import old_div
 
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
-def main(agent_host):
+#### Depth_Map Testing
+def processFrame( frame ):
+
+    global current_yaw_delta_from_depth
+
+    y = int(old_div(video_height, 2))
+    rowstart = y * video_width
     
+    v = 0
+    v_max = 0
+    v_max_pos = 0
+    v_min = 0
+    v_min_pos = 0
+    
+    dv = 0
+    dv_max = 0
+    dv_max_pos = 0
+    dv_max_sign = 0
+    
+    d2v = 0
+    d2v_max = 0
+    d2v_max_pos = 0
+    d2v_max_sign = 0
+    
+    for x in range(0, video_width):
+        nv = frame[(rowstart + x) * 4 + 3]
+        ndv = nv - v
+        nd2v = ndv - dv
+
+        if nv > v_max or x == 0:
+            v_max = nv
+            v_max_pos = x
+            
+        if nv < v_min or x == 0:
+            v_min = nv
+            v_min_pos = x
+
+        if abs(ndv) > dv_max or x == 1:
+            dv_max = abs(ndv)
+            dv_max_pos = x
+            dv_max_sign = ndv > 0
+            
+        if abs(nd2v) > d2v_max or x == 2:
+            d2v_max = abs(nd2v)
+            d2v_max_pos = x
+            d2v_max_sign = nd2v > 0
+            
+        d2v = nd2v
+        dv = ndv
+        v = nv
+    
+
+    if dv_max_sign:
+        edge = old_div(video_width, 4)
+    else:
+        edge = 3 * video_width / 4
+
+    if d2v_max > 8:
+        current_yaw_delta_from_depth = (old_div(float(d2v_max_pos - edge), video_width)) 
+    else:
+        if v_max < 255:
+            current_yaw_delta_from_depth = (old_div(float(v_max_pos), video_width)) - 0.5
+        else:
+            if current_yaw_delta_from_depth < 0:
+                current_yaw_delta_from_depth = -1
+            else:
+                current_yaw_delta_from_depth = 1
+
+
+current_yaw_delta_from_depth = 0
+video_width = 800
+video_height = 400
+
+def main(agent_host):
+    malmoutils.fix_print()
+    malmoutils.parse_command_line(agent_host)
+    recordingsDirectory = malmoutils.get_recordings_directory(agent_host)
+
     q_network = QNetwork((2, Hyperparameters.OBS_SIZE, Hyperparameters.OBS_SIZE), len(Hyperparameters.ACTION_DICT))
     target_network = QNetwork((2, Hyperparameters.OBS_SIZE, Hyperparameters.OBS_SIZE), len(Hyperparameters.ACTION_DICT))
     target_network.load_state_dict(q_network.state_dict())
@@ -43,13 +121,19 @@ def main(agent_host):
     loss_array = []
 
     loop = tqdm(total=Hyperparameters.MAX_GLOBAL_STEPS, position=0, leave=False)
+    
+    
+    
+    
     while global_step < Hyperparameters.MAX_GLOBAL_STEPS:
         episode_step = 0
         episode_return = 0
         episode_loss = 0
         done = False
+        
 
-        agent_host = init_malmo(agent_host)
+        #Initialize
+        agent_host = init_malmo(agent_host,recordingsDirectory, video_width,video_height)
         world_state = agent_host.getWorldState()
         while not world_state.has_mission_begun:
             time.sleep(0.1)
@@ -58,12 +142,29 @@ def main(agent_host):
                 print("\nError:",error.text)
         obs = get_observation(world_state, agent_host)
 
+        #Testing  
+        agent_host.sendCommand( "move 1" )
+
         while world_state.is_mission_running:
+            #Depth Implementation
+            while world_state.number_of_video_frames_since_last_state < 1 and world_state.is_mission_running:
+                time.sleep(0.05)
+                world_state = agent_host.getWorldState()
+
+            if world_state.is_mission_running:
+                processFrame(world_state.video_frames[0].pixels)
+                print("Yaw Delta ", current_yaw_delta_from_depth)  
+                #agent_host.sendCommand( "turn " + str(current_yaw_delta_from_depth) )
+            
+            
+            
             action_idx = get_action(obs, q_network, epsilon)
             command = Hyperparameters.ACTION_DICT[action_idx]
 
             agent_host.sendCommand(command)
-
+            agent_host.sendCommand( "turn " + str(current_yaw_delta_from_depth) )
+            
+            
             time.sleep(.2)
 
             episode_step += 1
@@ -98,6 +199,8 @@ def main(agent_host):
 
                 if global_step % Hyperparameters.TARGET_UPDATE == 0:
                     target_network.load_state_dict(q_network.state_dict())
+
+
 
         num_episode += 1
         returns.append(episode_return)
