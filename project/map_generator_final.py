@@ -19,29 +19,40 @@ def GetMissionXML(SIZE , OBS_SIZE, MAX_EPISODE_STEPS, video_width, video_height)
   version = random.randrange(2)
   myxml2 = "" 
   if version == 0:
-    x = 6
+    x = int(WIDTH/2 +1)
     for y in range(int(SIZE*2/3)+2, SIZE,2):
-        myxml2 += "<DrawCuboid x1='{}' y1='10' z1='{}' x2='{}' y2='12' z2='{}'  type='{}' />".format(x,y,x+2,y,random.choice(blocktype))
-        if x == 6:
-            x=8
+        if x == int(WIDTH/2 +1):
+            myxml2 += "<DrawCuboid x1='{}' y1='10' z1='{}' x2='{}' y2='12' z2='{}'  type='{}' />".format(x,y,x+1,y,random.choice(blocktype))
+            myxml2 += "<DrawBlock x='{}' y='10' z='{}'  type='{}' />".format(x+2,y,random.choice(blocktype))
+            x=WIDTH-2
         else:
-            x=6
-    for x in range(-10,-5):
+            myxml2 += "<DrawBlock x='{}' y='10' z='{}'  type='{}' />".format(x,y,random.choice(blocktype))
+            myxml2 += "<DrawCuboid x1='{}' y1='10' z1='{}' x2='{}' y2='12' z2='{}'  type='{}' />".format(x+1,y,x+2,y,random.choice(blocktype))
+            x=int(WIDTH/2 +1)
+    for x in range(-WIDTH,int(-WIDTH/2)):
         for y in range(int(SIZE*2/3)+2, SIZE):      
             if random.random() < 0.2:
                 myxml2 += "<DrawBlock x='{}' y='9' z='{}'  type='glass' />".format(x,y)
   else:
-    x = -9
+    x = -WIDTH+1
     for y in range(int(SIZE*2/3)+2, SIZE,2):
-        myxml2 += "<DrawCuboid x1='{}' y1='10' z1='{}' x2='{}' y2='12' z2='{}'  type='{}' />".format(x,y,x+2,y,random.choice(blocktype))
-        if x == -9:
-            x=-7
+        if x == -WIDTH+1:
+            myxml2 += "<DrawCuboid x1='{}' y1='10' z1='{}' x2='{}' y2='12' z2='{}'  type='{}' />".format(x,y,x+1,y,random.choice(blocktype))
+            myxml2 += "<DrawBlock x='{}' y='10' z='{}'  type='{}' />".format(x+2,y,random.choice(blocktype))
+            x=int(-WIDTH/2 -2)
         else:
-            x=-9
-    for x in range(6,10):
+            myxml2 += "<DrawBlock x='{}' y='10' z='{}'  type='{}' />".format(x,y,random.choice(blocktype))
+            myxml2 += "<DrawCuboid x1='{}' y1='10' z1='{}' x2='{}' y2='12' z2='{}'  type='{}' />".format(x+1,y,x+2,y,random.choice(blocktype))
+            x=-WIDTH+1
+    for x in range(int(WIDTH/2),WIDTH):
         for y in range(int(SIZE*2/3)+2, SIZE):      
             if random.random() < 0.2:
                 myxml2 += "<DrawBlock x='{}' y='9' z='{}'  type='glass' />".format(x,y)
+
+  if JUMP_MOVE_ENABLED == True:
+    myxml2 += "<DrawCuboid x1='-2' y1='10' z1='{}' x2='2' y2='15' z2='{}' type='air'/>".format(int(SIZE*2/3)+1,SIZE)
+    for x in range(int(SIZE*2/3)+2,SIZE,2):
+    	myxml2 += "<DrawCuboid x1='-2' y1='10' z1='{}' x2='2' y2='{}' z2='{}' type='stone'/>".format(x,int((x-int(SIZE*2/3)-2)/2)+10,x+1)
                 
   return '''<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
             <Mission xmlns="http://ProjectMalmo.microsoft.com" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
