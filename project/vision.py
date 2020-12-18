@@ -26,11 +26,11 @@ def view_surrounding(video_height, video_width, frame_list:bytearray,index=None)
         for j in range(video_width):
             r,g,b = img[i][j][0],img[i][j][1],img[i][j][2]
             label = 0
-            if r>110 and g>150 and b>225:
+            if r>110 and g>150 and b>225:   
                 label = 0#sky
-            elif r>180 and g > 160  and b>50:
+            elif r>120 and r<210 and g>100 and g<210 and b>20 and b<100:
                 label = 1#gold barrier
-            elif r>30 and g<195 and b<120:
+            elif r>15 and r<120 and g>80 and g<205 and b>25 and b<210:
                 label = 2#emerald barrier
             else:
                 label = 4 #road

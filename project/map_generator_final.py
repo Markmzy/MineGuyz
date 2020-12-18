@@ -1,11 +1,12 @@
 import random
 blocktype = ["gold_block", "emerald_block"]
-color = ["WHITE", "MAGENTA", "LIGHT_BLUE", "CYAN", "PURPLE", "BLUE", "BROWN", "RED"]
+color = ["MAGENTA", "PURPLE", "BLUE", "BROWN", "RED"]
 
 
 def GetMissionXML(SIZE , OBS_SIZE, MAX_EPISODE_STEPS, video_width, video_height):
   WIDTH = 10 
   myxml = ""
+  JUMP_MOVE_ENABLED = True
 
   bridgeL = int(SIZE/4)
   bridgeW = int(SIZE/8)
