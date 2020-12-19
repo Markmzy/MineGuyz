@@ -97,8 +97,8 @@ def processFrame( frame ):
 
 
 current_yaw_delta_from_depth = 0
-video_width = 800
-video_height = 400
+video_width = 256
+video_height = 256
 
 def main(agent_host):
     
