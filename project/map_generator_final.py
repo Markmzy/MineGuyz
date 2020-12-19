@@ -78,9 +78,9 @@ def GetMissionXML(SIZE , OBS_SIZE, MAX_EPISODE_STEPS, video_width, video_height)
                     "<DrawCuboid x1='{}' y1='10' z1='-5' x2='{}' y2='40' z2='{}' type='air'/>".format(-WIDTH,WIDTH,SIZE) + \
                     "<DrawCuboid x1='{}' y1='9' z1='-6' x2='{}' y2='9' z2='-1' type='wool' colour='PINK'/>".format(-WIDTH-1,WIDTH+1) + \
                     "<DrawCuboid x1='{}' y1='9' z1='0' x2='{}' y2='9' z2='{}' type='wool' colour='{}'/>".format(-WIDTH-1,WIDTH+1,int(SIZE/4),random.choice(color)) + \
-                    "<DrawCuboid x1='{}' y1='9' z1='{}' x2='{}' y2='9' z2='{}' type='diamond_block'/>".format(-WIDTH-1,int(SIZE/4)+1,WIDTH+1,int(SIZE/4)+1) + \
+                    "<DrawCuboid x1='{}' y1='9' z1='{}' x2='{}' y2='10' z2='{}' type='diamond_block'/>".format(-WIDTH-1,int(SIZE/4)+1,WIDTH+1,int(SIZE/4)+1) + \
                     "<DrawCuboid x1='{}' y1='9' z1='{}' x2='{}' y2='9' z2='{}' type='wool' colour='{}'/>".format(-WIDTH-1,int(SIZE/4)+2,WIDTH+1,int(SIZE*2/3)-2,random.choice(color)) + \
-                    "<DrawCuboid x1='{}' y1='9' z1='{}' x2='{}' y2='9' z2='{}' type='iron_block'/>".format(-WIDTH,int(SIZE*2/3)-1,WIDTH,int(SIZE*2/3)-1) + \
+                    "<DrawCuboid x1='{}' y1='9' z1='{}' x2='{}' y2='10' z2='{}' type='iron_block'/>".format(-WIDTH,int(SIZE*2/3)-1,WIDTH,int(SIZE*2/3)-1) + \
                     "<DrawCuboid x1='{}' y1='9' z1='{}' x2='{}' y2='9' z2='{}' type='wool' colour='{}'/>".format(-WIDTH-1,int(SIZE*2/3),WIDTH+1,SIZE+1,random.choice(color)) + \
                     "<DrawCuboid x1='{}' y1='9' z1='{}' x2='{}' y2='10' z2='{}' type='redstone_block'/>".format(-WIDTH,SIZE+1,WIDTH,SIZE+1) + \
                     "<DrawCuboid x1='{}' y1='8' z1='-5' x2='{}' y2='8' z2='{}' type='water'/>".format(-WIDTH,WIDTH,SIZE) + \
