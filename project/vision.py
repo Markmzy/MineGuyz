@@ -28,10 +28,8 @@ def view_surrounding(video_height, video_width, frame_list:bytearray,index=None)
             label = 0
             if r>110 and g>150 and b>225:   
                 label = 0#sky
-            elif r>120 and r<210 and g>100 and g<210 and b>20 and b<100:
+            elif (r>120 and r<210 and g>100 and g<210 and b>20 and b<100) or (r>15 and r<120 and g>80 and g<205 and b>25 and b<210):
                 label = 1#gold barrier
-            elif r>15 and r<120 and g>80 and g<205 and b>25 and b<210:
-                label = 2#emerald barrier
             else:
                 label = 4 #road
 
