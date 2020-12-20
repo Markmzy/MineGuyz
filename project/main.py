@@ -105,8 +105,10 @@ video_height = 768
 
 def main(agent_host):
     device = torch.device("cpu")
-    eyes = Eyes()
-    clear_images()
+    if VISION_ENABLED:
+        eyes = Eyes()
+    if GET_VISION_DATA:
+        clear_images()
     malmoutils.fix_print()
     malmoutils.parse_command_line(agent_host)
     recordingsDirectory = malmoutils.get_recordings_directory(agent_host)
@@ -128,10 +130,9 @@ def main(agent_host):
     loss_array = []
 
     loop = tqdm(total=Hyperparameters.MAX_GLOBAL_STEPS, position=0, leave=False)
-    
-    
-    
+
     result_dataset = []
+
     print("Global Step", Hyperparameters.MAX_GLOBAL_STEPS)
     while global_step < Hyperparameters.MAX_GLOBAL_STEPS:
         episode_step = 0
