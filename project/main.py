@@ -21,11 +21,14 @@ from map_generator_final import GetMissionXML
 from RL_DQN import QNetwork, Hyperparameters, get_action, prepare_batch, learn, log_returns
 from get_observation import get_observation
 from init_malmo import init_malmo
-from vision import view_surrounding, clear_images
+from vision import view_surrounding, clear_images, get_img, Eyes
 import malmoutils
 from past.utils import old_div
 
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
+
+GET_VISION_DATA=True
+VISION_ENABLED=False
 
 #### Depth_Map Testing
 def processFrame( frame ):
@@ -97,11 +100,12 @@ def processFrame( frame ):
 
 
 current_yaw_delta_from_depth = 0
-video_width = 256
-video_height = 256
+video_width = 768  
+video_height = 768
 
 def main(agent_host):
-    
+    device = torch.device("cpu")
+    eyes = Eyes()
     clear_images()
     malmoutils.fix_print()
     malmoutils.parse_command_line(agent_host)
@@ -146,10 +150,12 @@ def main(agent_host):
                 print("\nError:",error.text)
         obs = get_observation(world_state, agent_host)
 
+
         #Testing  
         agent_host.sendCommand( "move 1" )
 
         while world_state.is_mission_running:
+            
             #Depth Implementation
             while world_state.number_of_video_frames_since_last_state < 1 and world_state.is_mission_running:
                 time.sleep(0.05)
@@ -159,7 +165,7 @@ def main(agent_host):
                 processFrame(world_state.video_frames[0].pixels)
                 #print("Yaw Delta ", current_yaw_delta_from_depth)  
                 #agent_host.sendCommand( "turn " + str(current_yaw_delta_from_depth) )
-            
+                
             
             
             action_idx = get_action(obs, q_network, epsilon)
@@ -167,9 +173,11 @@ def main(agent_host):
 
             agent_host.sendCommand(command)
             agent_host.sendCommand( "turn " + str(current_yaw_delta_from_depth) )
-            
-            
-            time.sleep(.2)
+
+            time.sleep(.3)
+
+            if VISION_ENABLED:
+                input_img_temp = get_img(world_state, agent_host,eyes,device,video_width,video_height)
 
             episode_step += 1
             if episode_step >= Hyperparameters.MAX_EPISODE_STEPS or \
@@ -179,11 +187,15 @@ def main(agent_host):
                 time.sleep(2)  
 
             world_state = agent_host.getWorldState()
-            result_dataset.append(view_surrounding(video_height, video_width, world_state.video_frames[0].pixels, global_step))
+           
+            if GET_VISION_DATA:
+                result_dataset.append(view_surrounding(video_height, video_width, world_state.video_frames[0].pixels, global_step))
+            
             for error in world_state.errors:
                 print("Error:", error.text)
+            
             next_obs = get_observation(world_state, agent_host) 
-
+        
             reward = 0
             for r in world_state.rewards:
                 reward += r.getValue()

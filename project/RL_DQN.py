@@ -74,7 +74,6 @@ def get_action(obs, q_network, epsilon):
 
 
 def prepare_batch(replay_buffer):
-
     batch_data = random.sample(replay_buffer, Hyperparameters.BATCH_SIZE)
     obs = torch.tensor([x[0] for x in batch_data], dtype=torch.float)
     action = torch.tensor([x[1] for x in batch_data], dtype=torch.long)
@@ -87,7 +86,6 @@ def prepare_batch(replay_buffer):
 
 def learn(batch, optim, q_network, target_network):
     obs, action, next_obs, reward, done = batch
-
     optim.zero_grad()
     values = q_network(obs).gather(1, action.unsqueeze(-1)).squeeze(-1)
     target = torch.max(target_network(next_obs), 1)[0]
