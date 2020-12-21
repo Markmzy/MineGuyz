@@ -124,7 +124,7 @@ for i in range(video_height):
 
 ### Evaluation
 
-#### <u>**DQN**</u>
+#### **<u>DQN</u>**
 
 #### *Qualitative*
 
