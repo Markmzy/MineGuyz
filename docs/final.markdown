@@ -22,6 +22,8 @@ permalink: /final/
 
 #### Image segmentation was done for the first part of the stage to aid in computer vision and help the agent in avoiding the blocks and barriers. Training data was provided to a residual neural network by first generating dozens of images using the malmo screen capture API. Then these images were looped over pixel by pixel to segment for training purposes based upon the range of their RGB values. The sky was classified based upon if the pixel had an R value in the range (110, inf+), G value in the range (150, +in), and B value in the range (225, inf+). Barriers were either gold or green so they were classified Gold based on if they had R values in the range of (120, 210), G values in the range of (100,210), and B values in the range of (20,100), or Green based on if they had R values in the range of (15, 120), G values in the range of (80,205), and B values in the range of (25,210). Everything else was classified background. 
 
+#### Code
+
 ```python
 
 for i in range(video_height):
@@ -39,13 +41,15 @@ for i in range(video_height):
             result_data_set[i].append(label)
 ```
 
+#### Training Data and Labels
+
 ![My image Name](assets/images/plot0.png)
 
 ![My image Name](assets/images/plot1.png)
 
 
 
-These images and manual labels for them were saved locally in our images folder. We then imported these images and labels using numpy, and split them into training and validation data with an 80/20 split. Here we then fed the training data into a residual neural network from pytorch which we would then train to automatically segment inputted images from the agent during gameplay for the barrier blocks.
+#### These images and manual labels for them were saved locally in our images folder. We then imported these images and labels using numpy, and split them into training and validation data with an 80/20 split. Here we then fed the training data into a residual neural network from pytorch which we would then train to automatically segment inputted images from the agent during gameplay for the barrier blocks.
 
 #### Residual Net Breakdown
 
@@ -54,7 +58,17 @@ These images and manual labels for them were saved locally in our images folder.
 <br />
 
 ### Evaluation
-#### Todo
+#### Segmentation
+
+#### Quatitative
+
+#### The evaluation for the segmentation was done while training the residual neural network. During each epoch the accuracy was computed by utilzing the validation data, which we had reserved using an 80/20 training validation split. We also computed the loss after each epoch as well, to ensure that the agent was training properly. As you can see below are our loss and accuracy graphs. Whilst the loss does generally trend downwards, the accuracy tends to oscilate, this is perhaphs due to the low resolution of our training images, and limited hardware resources with regards to how much data we can provide to the network and for how long we can train.
+
+
+
+#### Qualitative
+
+#### The qualitative assement of the segmentation algorithm was done mainly via inspection, and comparing the segmented image produced by the neural net to what we can see for ourselves in the training data. Generally speaking the images looked better as the training went on with the edges getting crisper and more defined and the blocks being better distinguished from their surroundings. However, due to the variety of colors in our maps, we did experience a good amount of noise that caused the defintions of the blocks to be fuzzier than ideal. Further, more computational restrictions on training time added to not allowing us to train our network to be accurate as we would have liked.
 
 <br />
 
