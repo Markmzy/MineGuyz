@@ -39,33 +39,26 @@ for i in range(video_height):
             result_data_set[i].append(label)
 ```
 
-#### These images and manual labels for them were saved locally in our images folder. We then imported these images and labels using numpy, and split them into training and validation data with an 80/20 split. Here we then fed the training data into a residual neural network from pytorch which we would then train to automatically segment inputted images from the agent during gameplay for the barrier blocks.
-
 <p align="center">
-  <img src="assets/images/segmentTrainOne.png" />
+  <img src="assets/images/plot0.png" />
 </p>
 
 <p align="center">
-  <img src="assets/images/segmentTrainTwo.png" />
+  <img src="assets/images/plot1.png" />
 </p>
 
 <p align="center">
-  <img src="assets/images/segmentTrainThree.png" />
+  <img src="assets/images/plot3.png" />
 </p>
+These images and manual labels for them were saved locally in our images folder. We then imported these images and labels using numpy, and split them into training and validation data with an 80/20 split. Here we then fed the training data into a residual neural network from pytorch which we would then train to automatically segment inputted images from the agent during gameplay for the barrier blocks.
 
+#### Residual Net Breakdown
 <p align="center">
-  <img src="assets/images/segmentTrainFour.png" />
+  <img src="assets/images/residualnet.png" />
 </p>
-
-
-
 <br />
 
 ### Evaluation
-#### Todo
-
-<br />
-### Remaining Goals 
 #### Todo
 
 <br />
