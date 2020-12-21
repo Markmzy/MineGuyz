@@ -39,29 +39,26 @@ for i in range(video_height):
             result_data_set[i].append(label)
 ```
 
-<p align="center">
-  <img src="assets/images/plot0.png" />
-</p>
+<p align="center"
+![My image Name](assets/images/plot0.png)
 
-<p align="center">
-  <img src="assets/images/plot1.png" />
-</p>
+![My image Name](assets/images/plot1.png)
 
-<p align="center">
-  <img src="assets/images/plot3.png" />
-</p>
+
+
 These images and manual labels for them were saved locally in our images folder. We then imported these images and labels using numpy, and split them into training and validation data with an 80/20 split. Here we then fed the training data into a residual neural network from pytorch which we would then train to automatically segment inputted images from the agent during gameplay for the barrier blocks.
 
 #### Residual Net Breakdown
-<p align="center">
-  <img src="assets/images/residualnet.png" />
-</p>
+
+![My image Name](assets/images/residualnet.png)
+
 <br />
 
 ### Evaluation
 #### Todo
 
 <br />
+
 ### Resources Used
 
 #### The resources utilized so far have been using Malmo’s API to simulate the environment and Pytroch for creating tensors, neural networks, and optimizers. Certain functionalities from assignment that were useful were derived for this project. The following resources were used to develop implementations or to develop ideas.
