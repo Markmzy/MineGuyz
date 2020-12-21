@@ -35,17 +35,17 @@ def GetMissionXML(SIZE , OBS_SIZE, MAX_EPISODE_STEPS, video_width, video_height)
             if random.random() < 0.2:
                 myxml2 += "<DrawBlock x='{}' y='9' z='{}'  type='glass' />".format(x,y)
   else:
-    x = -WIDTH+1
+    x = -WIDTH
     for y in range(int(SIZE*2/3)+2, SIZE,2):
-        if x == -WIDTH+1:
+        if x == -WIDTH:
             myxml2 += "<DrawCuboid x1='{}' y1='10' z1='{}' x2='{}' y2='12' z2='{}'  type='{}' />".format(x,y,x+1,y,random.choice(blocktype))
             myxml2 += "<DrawBlock x='{}' y='10' z='{}'  type='{}' />".format(x+2,y,random.choice(blocktype))
-            x=int(-WIDTH/2 -2)
+            x=int(-WIDTH/2 -3)
         else:
             myxml2 += "<DrawBlock x='{}' y='10' z='{}'  type='{}' />".format(x,y,random.choice(blocktype))
             myxml2 += "<DrawCuboid x1='{}' y1='10' z1='{}' x2='{}' y2='12' z2='{}'  type='{}' />".format(x+1,y,x+2,y,random.choice(blocktype))
-            x=-WIDTH+1
-    for x in range(int(WIDTH/2),WIDTH):
+            x=-WIDTH
+    for x in range(int(WIDTH/2+1),WIDTH+1):
         for y in range(int(SIZE*2/3)+2, SIZE):      
             if random.random() < 0.2:
                 myxml2 += "<DrawBlock x='{}' y='9' z='{}'  type='glass' />".format(x,y)
