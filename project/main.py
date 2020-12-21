@@ -28,7 +28,7 @@ from past.utils import old_div
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 GET_VISION_DATA= True
-VISION_ENABLED= True
+VISION_ENABLED= False
 
 #### Depth_Map Testing
 def processFrame( frame ):
@@ -156,7 +156,7 @@ def main(agent_host):
         agent_host.sendCommand( "move 1" )
 
         while world_state.is_mission_running:
-            
+            time.sleep(2)  
             #Depth Implementation
             while world_state.number_of_video_frames_since_last_state < 1 and world_state.is_mission_running:
                 time.sleep(0.05)
@@ -191,9 +191,7 @@ def main(agent_host):
                 time.sleep(2)  
 
             world_state = agent_host.getWorldState()
-            if GET_VISION_DATA:
-                #time.sleep(5)
-                # Testing 
+            if GET_VISION_DATA and world_state.is_mission_running:
                 result_dataset.append(view_surrounding(video_height, video_width, world_state.video_frames[0].pixels, global_step))
             
             for error in world_state.errors:
