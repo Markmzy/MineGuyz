@@ -63,4 +63,15 @@ These images and manual labels for them were saved locally in our images folder.
 
 <br />
 ### Resources Used
-#### Todo
+
+#### The resources utilized so far have been using Malmo’s API to simulate the environment and Pytroch for creating tensors, neural networks, and optimizers. Certain functionalities from assignment that were useful were derived for this project. The following resources were used to develop implementations or to develop ideas.
+
+
+1. [Policy Gradient Reinforcement Learning in Pytorch](https://medium.com/@ts1829/policy-gradient-reinforcement-learning-in-pytorch-df1383ea0baf)
+2. [Building a DQN in Pytorch](https://blog.gofynd.com/building-a-deep-q-network-in-pytorch-fa1086aa5435)
+3. [Pytorch Reinforcement Learning](https://github.com/bentrevett/pytorch-rl)
+4. [How does the Bellman equation work in Deep RL](https://towardsdatascience.com/residual-network-implementing-resnet-a7da63c7b278)
+5. [Residual Neural Nets in Pytorch](https://towardsdatascience.com/residual-network-implementing-resnet-a7da63c7b278)
+6. [Pytorch and Image Segmentation](https://www.learnopencv.com/pytorch-for-beginners-semantic-segmentation-using-torchvision/)
+7. [Depth Maps in Python](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_depthmap/py_depthmap.html)
+
