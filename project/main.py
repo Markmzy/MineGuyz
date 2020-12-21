@@ -27,8 +27,8 @@ from past.utils import old_div
 
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
-GET_VISION_DATA=True
-VISION_ENABLED=False
+GET_VISION_DATA= True
+VISION_ENABLED= True
 
 #### Depth_Map Testing
 def processFrame( frame ):
@@ -100,8 +100,8 @@ def processFrame( frame ):
 
 
 current_yaw_delta_from_depth = 0
-video_width = 768  
-video_height = 768
+video_width = 512
+video_height = 512
 
 def main(agent_host):
     device = torch.device("cpu")
@@ -147,8 +147,8 @@ def main(agent_host):
         while not world_state.has_mission_begun:
             time.sleep(0.1)
             world_state = agent_host.getWorldState()
-            for error in world_state.errors:
-                print("\nError:",error.text)
+            #for error in world_state.errors:
+                #print("\nError:",error.text)
         obs = get_observation(world_state, agent_host)
 
 
@@ -164,22 +164,25 @@ def main(agent_host):
 
             if world_state.is_mission_running:
                 processFrame(world_state.video_frames[0].pixels)
-                #print("Yaw Delta ", current_yaw_delta_from_depth)  
+                print("Yaw Delta ", current_yaw_delta_from_depth)  
                 #agent_host.sendCommand( "turn " + str(current_yaw_delta_from_depth) )
-                
-            
-            
+                if current_yaw_delta_from_depth > 0:
+                    agent_host.sendCommand(Hyperparameters.ACTION_DICT[1])
+                else:
+                    agent_host.sendCommand(Hyperparameters.ACTION_DICT[2])
+        
+
             action_idx = get_action(obs, q_network, epsilon)
             command = Hyperparameters.ACTION_DICT[action_idx]
 
             agent_host.sendCommand(command)
-            agent_host.sendCommand( "turn " + str(current_yaw_delta_from_depth) )
+            #agent_host.sendCommand( "turn " + str(current_yaw_delta_from_depth) )
 
-            time.sleep(.3)
+            #time.sleep(.3)
 
             if VISION_ENABLED:
                 input_img_temp = get_img(world_state, agent_host,eyes,device,video_width,video_height)
-
+                print("Testing 555")
             episode_step += 1
             if episode_step >= Hyperparameters.MAX_EPISODE_STEPS or \
                     (obs[0, int(Hyperparameters.OBS_SIZE/2)+1, int(Hyperparameters.OBS_SIZE/2)] == -1 and \
@@ -188,8 +191,9 @@ def main(agent_host):
                 time.sleep(2)  
 
             world_state = agent_host.getWorldState()
-           
             if GET_VISION_DATA:
+                #time.sleep(5)
+                # Testing 
                 result_dataset.append(view_surrounding(video_height, video_width, world_state.video_frames[0].pixels, global_step))
             
             for error in world_state.errors:
@@ -206,7 +210,7 @@ def main(agent_host):
             obs = next_obs
 
             global_step += 1
-            print(global_step)
+            #print(global_step)
             if global_step == Hyperparameters.MAX_GLOBAL_STEPS:
                 break
 
@@ -234,11 +238,11 @@ def main(agent_host):
 
         if num_episode > 0 and num_episode % 10 == 0:
             log_returns(steps, loss_array)
-            print()
+            #print()
 
-    print(len(result_dataset))
+    #print(len(result_dataset))
     np.save("images/image_labels",np.array(result_dataset))
-    print('Labels Saved')
+    #print('Labels Saved')
         
 
 if __name__ == '__main__':
@@ -247,11 +251,11 @@ if __name__ == '__main__':
     try:
         agent_host.parse( sys.argv )
     except RuntimeError as e:
-        print('ERROR:', e)
-        print(agent_host.getUsage())
+        #print('ERROR:', e)
+        #print(agent_host.getUsage())
         exit(1)
     if agent_host.receivedArgument("help"):
-        print(agent_host.getUsage())
+        #print(agent_host.getUsage())
         exit(0)
 
     main(agent_host)

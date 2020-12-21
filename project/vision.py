@@ -20,7 +20,7 @@ class Cfg:
     seed = 0
     cuda = True
     start_epo = 0
-    pretrain = True
+    pretrain = False
     nd_kpts = 6
 
 cfg = Cfg()
@@ -36,7 +36,7 @@ class Eyes:
     def get_result(self,img):
         return torch.argmax(self.net(img.to(device))['out'], dim=1)
 
-def img_preprocessing(img,dep,eyes,device,size=(256,256)):
+def img_preprocessing(img,dep,eyes,device,size=(512,512)):
     img = img.resize(size)
     dep = dep.resize(size)
     transform1 = transforms.Compose([transforms.ToTensor()])
@@ -52,11 +52,11 @@ def img_preprocessing(img,dep,eyes,device,size=(256,256)):
     result_tensor = torch.cat((result_tensor, seg_img), 1)
     return result_tensor
 
-def frame_process(frame_list:bytearray,video_width,video_height,size=(256,256)):
+def frame_process(frame_list:bytearray,video_width,video_height,size=(512,512)):
     int_list = list(frame_list)
     img_o = np.array(int_list).reshape((video_width,video_height,4))
     img = img_o[:,:,:3]
-    depth = img_o[:,:,-1].reshape((256,-1))
+    depth = img_o[:,:,-1].reshape((512,-1))
     image = Image.fromarray(img.astype('uint8'), 'RGB').resize(size)
     depth = Image.fromarray(depth.astype('uint8'), 'L').resize(size)
     return image,depth
@@ -70,7 +70,7 @@ def clear_images():
     shutil.rmtree('./images')
     os.mkdir('./images')
 
-def view_surrounding(video_height, video_width, frame_list:bytearray,index=None,size=(256,256)):
+def view_surrounding(video_height, video_width, frame_list:bytearray,index=None,size=(512,512)):
     int_list = list(frame_list)
     img = np.array(int_list).reshape(video_height,video_width,4)
     img = img[:,:,:3]

@@ -22,8 +22,8 @@ import math
 class Hyperparameters:
     SIZE = 40
     OBS_SIZE = 9
-    MAX_EPISODE_STEPS = 1000
-    MAX_GLOBAL_STEPS = 100
+    MAX_EPISODE_STEPS = 100
+    MAX_GLOBAL_STEPS = 1000
     REPLAY_BUFFER_SIZE = 10000
     EPSILON_DECAY = .999
     MIN_EPSILON = .1
@@ -36,7 +36,8 @@ class Hyperparameters:
     ACTION_DICT = {
         0: 'movesouth 1',  
         1: 'moveeast 1',
-        2: 'movewest 1'
+        2: 'movewest 1',
+        3: 'jumpmove 1'
     }
 
 
@@ -68,7 +69,7 @@ def get_action(obs, q_network, epsilon):
         with torch.no_grad(): 
             action_idx = torch.argmax(action_values).item()
     else:
-        action_idx = random.randint(0,2) 
+        action_idx = random.randint(0,3) 
     
     return action_idx
 
