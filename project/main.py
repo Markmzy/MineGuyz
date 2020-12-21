@@ -194,9 +194,9 @@ def main(agent_host):
             
             if GET_VISION_DATA and world_state.is_mission_running:
                 try:
-                    result_dataset.append(view_surrounding(video_height, video_width, world_state.video_frames[0].pixels, global_step))
+                    result_dataset.append(view_surrounding(video_height, video_width, world_state.video_frames[-1].pixels, global_step))
                 except:
-                    print("Error in getting image.")
+                    print("Error in getting image for training data.")
 
             for error in world_state.errors:
                 print("Error:", error.text)
