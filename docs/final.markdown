@@ -76,6 +76,7 @@ permalink: /final/
 
 <br />
 
+
 #### Depth Map	
 
 #### Initially, the depth map image contains the necessary information about the distance between the objects' surface from a given viewpoint of a camera, where depth is created from the source image in grayscale format. The purpose behind the depth maps algorithm's implementation is to move left or right to steer toward the greatest depth, in essence, where the most discontinuity is in the depth map's gradient. Simply tracking through the middle line of the depth data and find the max discontinuities. In the case of a positive value, it represents a rapid change from close to far; for instance, the gap's left-hand edge where aiming to put this point in the leftmost quarter of the screen will cause it to aim for the gap. If it's a negative value, it represents a rapid change from far to close, for instance, the right-hand edge of a gap where aiming to put this point in the rightmost quarter of the screen will cause it to aim for the gap. If the delta, or the overall change in value, for the depth map is negative then the agent moves left, otherwise, it moves right. In the scenarios where there is nothing too apparent to aim for, the algorithm aims for the farthest point. Lastly, if there is no data in the depth map array, the agent simply continues to go in the direction it was already moving. In specific scenarios, the depth map algorithm faces challenges in regards to predicting depth due to texture, occlusion, and non-Lambertian surfaces, predominantly because the game is full of vibrant colors and aesthetics.
@@ -122,11 +123,18 @@ for i in range(video_height):
 <br />
 
 ### Evaluation
+
+#### DQN
+
+#### Qualitative
+
+#### The overall goal of the project is for the agent to make it to the end with a minimal amount of collisions as possible. During the initial first few episodes the agent gets stuck behind a few barriers and is unable to jump over obstacles separating the different stages. However after about episode 20 it begins to be able to jump over these barriers, and after about episode 30 it can easily go up the stairs no problem reaching the end and getting the max reward for finishing. After which the agent begins to seek to minimize the amount of steps it takes to reach to get to the end since there still is a small penalty for each step that is taken. The agent takes input from both the depth map and segmented image to make its decision for the first stage, and then utilizes surrounding observations and the depth map to make its decisions for the 2nd and 3rd stage.
+
 #### Segmentation
 
-#### Quatitative
+#### Quantitative
 
-#### The evaluation for the segmentation was done while training the residual neural network. During each epoch the accuracy was computed by utilzing the validation data, which we had reserved using an 80/20 training validation split. We also computed the loss after each epoch as well, to ensure that the agent was training properly. As you can see below are our loss and accuracy graphs. Whilst the loss does generally trend downwards, the accuracy tends to oscilate, this is perhaphs due to the low resolution of our training images, and limited hardware resources with regards to how much data we can provide to the network and for how long we can train.
+#### The evaluation for the segmentation was done while training the residual neural network. During each epoch the accuracy was computed by utilizing the validation data, which we had reserved using an 80/20 training validation split. We also computed the loss after each epoch as well, to ensure that the agent was training properly. As you can see below are our loss and accuracy graphs. Whilst the loss does generally trend downwards, the accuracy tends to oscillate, this is perhaps due to the low resolution of our training images, and limited hardware resources with regards to how much data we can provide to the network and for how long we can train.
 
 
 
