@@ -80,6 +80,8 @@ permalink: /final/
 
 <br />
 
+![My image Name](assets/images/fig_approach.png)
+
 
 #### <u>Depth Map</u>	
 
