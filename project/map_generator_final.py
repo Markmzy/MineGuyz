@@ -136,8 +136,6 @@ def GetMissionXML(SIZE , OBS_SIZE, MAX_EPISODE_STEPS, video_width, video_height)
                     <Block reward="100" type="diamond_block" behaviour="onceOnly" />
                     <Block reward="150" type="iron_block" behaviour="onceOnly" />
                     <Block reward="-10" type="glass" />
-                    <Block reward="-1" type="gold_block" />
-                    <Block reward="-1" type="emerald_block" />
                   </RewardForTouchingBlockType>
                   <RewardForSendingCommand reward = "-0.1"/>
                   <RewardForMissionEnd rewardForDeath="0">
