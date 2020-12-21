@@ -16,6 +16,64 @@ permalink: /final/
 
 ### Approaches
 
+#### DQN
+
+#### For our project we continued to use the Deep Q-Learning Algorithm. We also continued to utilize replay memory during training to allow the agent's observed transitions to be resued. Which then leads to the build up of a decorrelated batach of transitions significantly boosting the DQN's training. The given funtion allows the Q-Learning alogrithm to maximize a given reward:
+
+<br />
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=Q^*: State \times Action \rightarrow \mathbb{R}">
+
+<br />
+
+#### When given an action the policy is utilized to maximize a reward as such:
+
+<br />
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=\pi^*(s) = \arg\!\max_a \ Q^*(s, a)">
+
+<br />
+
+#### Since the information on the world is extremely limited and there is no access to the Q*, by utilizing convolutional neural networks as a function approximator we can construct one and train it to be similar Q* to. The Bellman equation given below is used as such that every Q* function for a policy obeys this equation.  
+<br />
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=Q^{\pi}(s, a) = r + \gamma Q^{\pi}(s', \pi(s'))">
+
+<br /> 
+
+**The actions consists of the following:**
+
+```math
+1. Moving south (Forward)
+2. Moving west (Left Horizontally)
+3. Moving east (Right Horizontally) 
+4. Jump (Up)
+```
+**The state space is the following:**
+
+```math
+[-10,10] x [1,40] = 840
+```
+
+<br />
+
+**Loss function:**
+
+#### In pursuit of constructing a policy that maximises the reward the Deep Q-learning algorithm utilizes the loss function below which is basically the difference between the two sides of the equality of the Bellman equation specified above, commonly reffered to as the temporal difference error.
+
+<br />
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=\delta = Q(s, a) - (r + \gamma \max_a Q(s', a))">
+
+<br />
+
+**Reward Functions**
+
+<br />
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=R(s)=  250\hspace{0.4cm} \text{Agent reaches destination}">
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=R(s)=  -1\hspace{0.4cm} \text{Agent touches the glass or the walls around the map or the glass on ground representing a river}">
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=R(s)=  -1\hspace{0.4cm} \text{Agent touches diamond block}">
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=R(s)=  -1\hspace{0.4cm} \text{Agent touches emerald_blck or the pole obstacles in the first phase}">
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=R(s)=  -1\hspace{0.4cm} \text{Agent touches gold_block or the pole obstacles in the first phase}">
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=R(s)=  -1\hspace{0.4cm} \text{Agent touches the Pink wool or the ground for initial state}">
+&ensp;<img src="https://render.githubusercontent.com/render/math?math=R(s)=    1\hspace{0.4cm} \text{Every time the agent passes a quarter of the distance on the map vertically toward the finish line}">
+
 <br />
 
 #### Segmenation
