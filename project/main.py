@@ -28,7 +28,7 @@ from past.utils import old_div
 os.environ['KMP_DUPLICATE_LIB_OK']='True'
 
 GET_VISION_DATA= True
-VISION_ENABLED= True
+VISION_ENABLED= False
 
 #### Depth_Map Testing
 def processFrame( frame ):
