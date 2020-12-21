@@ -94,9 +94,11 @@ Todo
 
 #### *Input Image*
 
+![My image Name](assets/images/depth_image.png)
 
+#### *Depth Map*
 
-#### 
+![My image Name](assets/images/depth_map.jpg)
 
 <br />
 
