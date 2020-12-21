@@ -4,7 +4,7 @@ title: Final
 permalink: /final/
 ---
 
-## Video
+## **Video**
 
 Todo
 
@@ -12,22 +12,22 @@ Todo
 
 ## **Project Summary** 
 
-##### The goal is for an agent to participate and guide itself to reach the mini-games finish line in a free-for-all struggle. The mini-game generated is designed with vibrant aesthetics consisting of multiple courses with an added complexity. Each course has distinguished obstacles and a unique set of actions to be utilized by the agent to achieve the optimal result. The agent has access to four controls or actions: move forward, move left, move right, and jump. The map begins with the agent encountering overwhelming stacked blocks with associated negative reinforcement given if the agent touches it. The map follows with additional stages containing a bridge over water, a massive staircase, and colossal cubes that block the right side of the path. These obstacles within each course are generated randomly upon the beginning of each episode.  All the obstacles and the surrounding glass guarding the entire field have a negative reinforcement that is small, numerically speaking, relative to the positive reinforcement of the redstone block at the end map. By touching the redstone, which represents the finish line, the agent receives a substantial reinforcement. This results in the agent learning that the best outcome is to reach the finish line by encountering the least number of obstacles on the courses, ultimately maximizing the reward. There are two embedded factors within the agent's goal; initially, the agent needs to learn to reach the finish line at any cost and then learn to acquire far more quickly than the previous iterations. 
+#### The goal is for an agent to participate and guide itself to reach the mini-games finish line in a free-for-all struggle. The mini-game generated is designed with vibrant aesthetics consisting of multiple courses with an added complexity. Each course has distinguished obstacles and a unique set of actions to be utilized by the agent to achieve the optimal result. The agent has access to four controls or actions: move forward, move left, move right, and jump. The map begins with the agent encountering overwhelming stacked blocks with associated negative reinforcement given if the agent touches it. The map follows with additional stages containing a bridge over water, a massive staircase, and colossal cubes that block the right side of the path. These obstacles within each course are generated randomly upon the beginning of each episode.  All the obstacles and the surrounding glass guarding the entire field have a negative reinforcement that is small, numerically speaking, relative to the positive reinforcement of the redstone block at the end map. By touching the redstone, which represents the finish line, the agent receives a substantial reinforcement. This results in the agent learning that the best outcome is to reach the finish line by encountering the least number of obstacles on the courses, ultimately maximizing the reward. There are two embedded factors within the agent's goal; initially, the agent needs to learn to reach the finish line at any cost and then learn to acquire far more quickly than the previous iterations. 
 
 
 
 ![My image Name](assets/images/aeriel.png)
 
 
-##### The problem is not particularly trivial to solve using greedy or brute force algorithms or some form of scripted method because the map is complex, but additionally, the obstacles are generated randomly, making it impossible to use a discrete algorithm to solve such a stochastic problem. AI/ML algorithms are beneficial in this specific context since it can learn and improve from experience over time. This allows the agent to take more practical actions in less predictable dynamic environments. Utilizing a reinforcement learning algorithm provides the agent a framework or language to model the game's complex system as generically as possible. Moreover, using computer vision techniques such as depth map and segmentation provides the agent with pattern recognition ability to distinguish between a set of phenomenons or things within the game. 
+#### The problem is not particularly trivial to solve using greedy or brute force algorithms or some form of scripted method because the map is complex, but additionally, the obstacles are generated randomly, making it impossible to use a discrete algorithm to solve such a stochastic problem. AI/ML algorithms are beneficial in this specific context since it can learn and improve from experience over time. This allows the agent to take more practical actions in less predictable dynamic environments. Utilizing a reinforcement learning algorithm provides the agent a framework or language to model the game's complex system as generically as possible. Moreover, using computer vision techniques such as depth map and segmentation provides the agent with pattern recognition ability to distinguish between a set of phenomenons or things within the game. 
 
 <br />
 
-## Approaches
+## **Approaches**
 
 #### <u>DQN</u>
 
-##### For our project we continued to use the Deep Q-Learning Algorithm. We also continued to utilize replay memory during training to allow the agent's observed transitions to be resued. Which then leads to the build up of a decorrelated batach of transitions significantly boosting the DQN's training. The given funtion allows the Q-Learning alogrithm to maximize a given reward:
+#### For our project we continued to use the Deep Q-Learning Algorithm. We also continued to utilize replay memory during training to allow the agent's observed transitions to be resued. Which then leads to the build up of a decorrelated batach of transitions significantly boosting the DQN's training. The given funtion allows the Q-Learning alogrithm to maximize a given reward:
 
 <br />
 &ensp;<img src="https://render.githubusercontent.com/render/math?math=Q^*: State \times Action \rightarrow \mathbb{R}">
@@ -41,7 +41,7 @@ Todo
 
 <br />
 
-##### Since the information on the world is extremely limited and there is no access to the Q*, by utilizing convolutional neural networks as a function approximator we can construct one and train it to be similar Q* to. The Bellman equation given below is used as such that every Q* function for a policy obeys this equation.  
+#### Since the information on the world is extremely limited and there is no access to the Q*, by utilizing convolutional neural networks as a function approximator we can construct one and train it to be similar Q* to. The Bellman equation given below is used as such that every Q* function for a policy obeys this equation.  
 <br />
 &ensp;<img src="https://render.githubusercontent.com/render/math?math=Q^{\pi}(s, a) = r + \gamma Q^{\pi}(s', \pi(s'))">
 
@@ -65,7 +65,7 @@ Todo
 
 #### **Loss function:**
 
-##### In pursuit of constructing a policy that maximises the reward the Deep Q-learning algorithm utilizes the loss function below which is basically the difference between the two sides of the equality of the Bellman equation specified above, commonly reffered to as the temporal difference error.
+#### In pursuit of constructing a policy that maximises the reward the Deep Q-learning algorithm utilizes the loss function below which is basically the difference between the two sides of the equality of the Bellman equation specified above, commonly reffered to as the temporal difference error.
 
 <br />
 &ensp;<img src="https://render.githubusercontent.com/render/math?math=\delta = Q(s, a) - (r + \gamma \max_a Q(s', a))">
@@ -90,7 +90,7 @@ Todo
 
 ### <u>Depth Map</u>	
 
-##### Initially, the depth map image contains the necessary information about the distance between the objects' surface from a given viewpoint of a camera, where depth is created from the source image in grayscale format. The purpose behind the depth maps algorithm's implementation is to move left or right to steer toward the greatest depth, in essence, where the most discontinuity is in the depth map's gradient. Simply tracking through the middle line of the depth data and find the max discontinuities. In the case of a positive value, it represents a rapid change from close to far; for instance, the gap's left-hand edge where aiming to put this point in the leftmost quarter of the screen will cause it to aim for the gap. If it's a negative value, it represents a rapid change from far to close, for instance, the right-hand edge of a gap where aiming to put this point in the rightmost quarter of the screen will cause it to aim for the gap. If the delta, or the overall change in value, for the depth map is negative then the agent moves left, otherwise, it moves right. In the scenarios where there is nothing too apparent to aim for, the algorithm aims for the farthest point. Lastly, if there is no data in the depth map array, the agent simply continues to go in the direction it was already moving. In specific scenarios, the depth map algorithm faces challenges in regards to predicting depth due to texture, occlusion, and non-Lambertian surfaces, predominantly because the game is full of vibrant colors and aesthetics.
+#### Initially, the depth map image contains the necessary information about the distance between the objects' surface from a given viewpoint of a camera, where depth is created from the source image in grayscale format. The purpose behind the depth maps algorithm's implementation is to move left or right to steer toward the greatest depth, in essence, where the most discontinuity is in the depth map's gradient. Simply tracking through the middle line of the depth data and find the max discontinuities. In the case of a positive value, it represents a rapid change from close to far; for instance, the gap's left-hand edge where aiming to put this point in the leftmost quarter of the screen will cause it to aim for the gap. If it's a negative value, it represents a rapid change from far to close, for instance, the right-hand edge of a gap where aiming to put this point in the rightmost quarter of the screen will cause it to aim for the gap. If the delta, or the overall change in value, for the depth map is negative then the agent moves left, otherwise, it moves right. In the scenarios where there is nothing too apparent to aim for, the algorithm aims for the farthest point. Lastly, if there is no data in the depth map array, the agent simply continues to go in the direction it was already moving. In specific scenarios, the depth map algorithm faces challenges in regards to predicting depth due to texture, occlusion, and non-Lambertian surfaces, predominantly because the game is full of vibrant colors and aesthetics.
 
 #### *Input Image*
 
@@ -102,7 +102,7 @@ Todo
 
 ### <u>Segmenation</u>
 
-##### Image segmentation was done for the first part of the stage to aid in computer vision and help the agent in avoiding the blocks and barriers. Training data was provided to a residual neural network by first generating dozens of images using the malmo screen capture API. Then these images were looped over pixel by pixel to segment for training purposes based upon the range of their RGB values. The sky was classified based upon if the pixel had an R value in the range (110, inf+), G value in the range (150, +in), and B value in the range (225, inf+). Barriers were either gold or green so they were classified Gold based on if they had R values in the range of (120, 210), G values in the range of (100,210), and B values in the range of (20,100), or Green based on if they had R values in the range of (15, 120), G values in the range of (80,205), and B values in the range of (25,210). Everything else was classified background. 
+#### Image segmentation was done for the first part of the stage to aid in computer vision and help the agent in avoiding the blocks and barriers. Training data was provided to a residual neural network by first generating dozens of images using the malmo screen capture API. Then these images were looped over pixel by pixel to segment for training purposes based upon the range of their RGB values. The sky was classified based upon if the pixel had an R value in the range (110, inf+), G value in the range (150, +in), and B value in the range (225, inf+). Barriers were either gold or green so they were classified Gold based on if they had R values in the range of (120, 210), G values in the range of (100,210), and B values in the range of (20,100), or Green based on if they had R values in the range of (15, 120), G values in the range of (80,205), and B values in the range of (25,210). Everything else was classified background. 
 
 #### *Code*
 
@@ -139,7 +139,7 @@ for i in range(video_height):
 
 <br />
 
-## Evaluation
+## **Evaluation**
 
 ### **<u>DQN</u>**
 
@@ -159,11 +159,11 @@ for i in range(video_height):
 
 #### The evaluation for the segmentation was done while training the residual neural network. During each epoch the accuracy was computed by utilizing the validation data, which we had reserved using an 80/20 training validation split. We also computed the loss after each epoch as well, to ensure that the agent was training properly. As you can see below are our loss and accuracy graphs. Whilst the loss does generally trend downwards, the accuracy tends to oscillate after recovering from a major dip downwards, this is perhaps due to the low resolution of our training images, and limited hardware resources with regards to how much data we can provide to the network and for how long we can train.
 
-### Loss
+### *Loss*
 
 ![My image Name](assets/images/loss_segmentation.png)
 
-#### Accuracy
+### *Accuracy*
 
 ![My image Name](assets/images/acc_segmentation.png)
 
