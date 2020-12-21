@@ -156,7 +156,7 @@ def main(agent_host):
         agent_host.sendCommand( "move 1" )
 
         while world_state.is_mission_running:
-            
+            time.sleep(2)  
             #Depth Implementation
             while world_state.number_of_video_frames_since_last_state < 1 and world_state.is_mission_running:
                 time.sleep(0.05)
@@ -182,7 +182,7 @@ def main(agent_host):
 
             if VISION_ENABLED:
                 input_img_temp = get_img(world_state, agent_host,eyes,device,video_width,video_height)
-                print("Testing 555")
+
             episode_step += 1
             if episode_step >= Hyperparameters.MAX_EPISODE_STEPS or \
                     (obs[0, int(Hyperparameters.OBS_SIZE/2)+1, int(Hyperparameters.OBS_SIZE/2)] == -1 and \
@@ -191,11 +191,13 @@ def main(agent_host):
                 time.sleep(2)  
 
             world_state = agent_host.getWorldState()
-            if GET_VISION_DATA:
-                #time.sleep(5)
-                # Testing 
-                result_dataset.append(view_surrounding(video_height, video_width, world_state.video_frames[0].pixels, global_step))
             
+            if GET_VISION_DATA and world_state.is_mission_running:
+                try:
+                    result_dataset.append(view_surrounding(video_height, video_width, world_state.video_frames[0].pixels, global_step))
+                except:
+                    print("Error in getting image.")
+
             for error in world_state.errors:
                 print("Error:", error.text)
             
