@@ -20,7 +20,7 @@ def get_observation(world_state, agent_host):
             observations = json.loads(msg)
 
             grid = observations['floorAll']
-            grid_binary = [1 if x == 'glass' or x == 'gold_block'  or x == 'emerald_block' else -1 if x=='redstone_block' else 0 for x in grid]
+            grid_binary = [1 if x == 'glass' or x == 'gold_block'  or x == 'emerald_block' or x == 'diamond_block' or x == 'iron_block' else -1 if x=='redstone_block' else 0 for x in grid]
             obs = np.reshape(grid_binary, (2, Hyperparameters.OBS_SIZE, Hyperparameters.OBS_SIZE))
             
             break
