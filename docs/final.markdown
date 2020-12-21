@@ -39,7 +39,6 @@ for i in range(video_height):
             result_data_set[i].append(label)
 ```
 
-<p align="center"
 ![My image Name](assets/images/plot0.png)
 
 ![My image Name](assets/images/plot1.png)
