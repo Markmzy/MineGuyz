@@ -61,8 +61,8 @@ def frame_process(frame_list:bytearray,video_width,video_height,size=(512,512)):
     depth = Image.fromarray(depth.astype('uint8'), 'L').resize(size)
     return image,depth
 
-def get_img(world_state,agent_obj,eyes,device,video_width,video_height):
-    img,dep = frame_process(world_state.video_frames[0].pixels,video_width,video_height)
+def get_img(world_state,frame,agent_obj,eyes,device,video_width,video_height):
+    img,dep = frame_process(frame,video_width,video_height)
     input_img = img_preprocessing(img,dep,eyes,device).to(device)
     return input_img
 

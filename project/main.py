@@ -156,16 +156,26 @@ def main(agent_host):
         agent_host.sendCommand( "move 1" )
 
         while world_state.is_mission_running:
-            time.sleep(2)  
             #Depth Implementation
             while world_state.number_of_video_frames_since_last_state < 1 and world_state.is_mission_running:
                 time.sleep(0.05)
                 world_state = agent_host.getWorldState()
 
             if world_state.is_mission_running:
-                processFrame(world_state.video_frames[0].pixels)
+                frame = world_state.video_frames[0].pixels
+                processFrame(frame)
+
+                if GET_VISION_DATA:
+                    try:
+                        result_dataset.append(view_surrounding(video_height, video_width, frame, global_step))
+                    except:
+                        print("Error in getting image for training data.")
+                
+                elif VISION_ENABLED:
+                    input_img_temp = get_img(world_state,frame,agent_host,eyes,device,video_width,video_height)
+                        
                 print("Yaw Delta ", current_yaw_delta_from_depth)  
-                #agent_host.sendCommand( "turn " + str(current_yaw_delta_from_depth) )
+
                 if current_yaw_delta_from_depth > 0:
                     agent_host.sendCommand(Hyperparameters.ACTION_DICT[1])
                 else:
@@ -180,9 +190,6 @@ def main(agent_host):
 
             #time.sleep(.3)
 
-            if VISION_ENABLED:
-                input_img_temp = get_img(world_state, agent_host,eyes,device,video_width,video_height)
-
             episode_step += 1
             if episode_step >= Hyperparameters.MAX_EPISODE_STEPS or \
                     (obs[0, int(Hyperparameters.OBS_SIZE/2)+1, int(Hyperparameters.OBS_SIZE/2)] == -1 and \
@@ -190,14 +197,8 @@ def main(agent_host):
                 done = True
                 time.sleep(2)  
 
-            world_state = agent_host.getWorldState()
-            
-            if GET_VISION_DATA and world_state.is_mission_running:
-                try:
-                    result_dataset.append(view_surrounding(video_height, video_width, world_state.video_frames[-1].pixels, global_step))
-                except:
-                    print("Error in getting image for training data.")
-
+            world_state = agent_host.getWorldState()            
+                        
             for error in world_state.errors:
                 print("Error:", error.text)
             
