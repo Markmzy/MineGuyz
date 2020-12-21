@@ -41,13 +41,21 @@ for i in range(video_height):
 
 #### These images and manual labels for them were saved locally in our images folder. We then imported these images and labels using numpy, and split them into training and validation data with an 80/20 split. Here we then fed the training data into a residual neural network from pytorch which we would then train to automatically segment inputted images from the agent during gameplay for the barrier blocks.
 
-![graph1](assets/images/segmentTrainOne.png)
+<p align="center">
+  <img src="assets/images/segmentTrainOne.png" />
+</p>
 
-![graph1](assets/images/segmentTrainTwo.png)
+<p align="center">
+  <img src="assets/images/segmentTrainTwo.png" />
+</p>
 
-![graph1](assets/images/segmentTrainThree.png)
+<p align="center">
+  <img src="assets/images/segmentTrainThree.png" />
+</p>
 
-![graph1](assets/images/segmentTrainFour.png)
+<p align="center">
+  <img src="assets/images/segmentTrainFour.png" />
+</p>
 
 
 
