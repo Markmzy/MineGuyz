@@ -141,7 +141,7 @@ for i in range(video_height):
 
 ## **Evaluation**
 
-### **<u>DQN</u>**
+### <u>DQN</u>
 
 #### *Qualitative*
 
@@ -153,17 +153,17 @@ for i in range(video_height):
 
 #### Here is the loss function which we can see converges towards zero as the agents step counts reach positive infinity.
 
-### **<u>Segmentation</u>**
+### <u>Segmentation</u>
 
 #### *Quantitative*
 
 #### The evaluation for the segmentation was done while training the residual neural network. During each epoch the accuracy was computed by utilizing the validation data, which we had reserved using an 80/20 training validation split. We also computed the loss after each epoch as well, to ensure that the agent was training properly. As you can see below are our loss and accuracy graphs. Whilst the loss does generally trend downwards, the accuracy tends to oscillate after recovering from a major dip downwards, this is perhaps due to the low resolution of our training images, and limited hardware resources with regards to how much data we can provide to the network and for how long we can train.
 
-### *Loss*
+#### *Loss*
 
 ![My image Name](assets/images/loss_segmentation.png)
 
-### *Accuracy*
+#### *Accuracy*
 
 ![My image Name](assets/images/acc_segmentation.png)
 
