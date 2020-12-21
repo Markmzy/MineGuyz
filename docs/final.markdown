@@ -76,6 +76,12 @@ permalink: /final/
 
 <br />
 
+#### Depth Map	
+
+#### Initially, the depth map image contains the necessary information about the distance between the objects' surface from a given viewpoint of a camera, where depth is created from the source image in grayscale format. The purpose behind the depth maps algorithm's implementation is to move left or right to steer toward the greatest depth, in essence, where the most discontinuity is in the depth map's gradient. Simply tracking through the middle line of the depth data and find the max discontinuities. In the case of a positive value, it represents a rapid change from close to far; for instance, the gap's left-hand edge where aiming to put this point in the leftmost quarter of the screen will cause it to aim for the gap. If it's a negative value, it represents a rapid change from far to close, for instance, the right-hand edge of a gap where aiming to put this point in the rightmost quarter of the screen will cause it to aim for the gap. If the delta, or the overall change in value, for the depth map is negative then the agent moves left, otherwise, it moves right. In the scenarios where there is nothing too apparent to aim for, the algorithm aims for the farthest point. Lastly, if there is no data in the depth map array, the agent simply continues to go in the direction it was already moving. In specific scenarios, the depth map algorithm faces challenges in regards to predicting depth due to texture, occlusion, and non-Lambertian surfaces, predominantly because the game is full of vibrant colors and aesthetics.
+
+<br />
+
 #### Segmenation
 
 #### Image segmentation was done for the first part of the stage to aid in computer vision and help the agent in avoiding the blocks and barriers. Training data was provided to a residual neural network by first generating dozens of images using the malmo screen capture API. Then these images were looped over pixel by pixel to segment for training purposes based upon the range of their RGB values. The sky was classified based upon if the pixel had an R value in the range (110, inf+), G value in the range (150, +in), and B value in the range (225, inf+). Barriers were either gold or green so they were classified Gold based on if they had R values in the range of (120, 210), G values in the range of (100,210), and B values in the range of (20,100), or Green based on if they had R values in the range of (15, 120), G values in the range of (80,205), and B values in the range of (25,210). Everything else was classified background. 
