@@ -162,7 +162,7 @@ for i in range(video_height):
 
 #### Here is the loss function which we can see converges towards zero as the agents step counts reach positive infinity.
 
-### <u>Segmentation</u>
+### **<u>Segmentation</u>**
 
 #### ***Quantitative***
 
