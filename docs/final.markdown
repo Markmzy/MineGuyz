@@ -93,7 +93,7 @@ Todo
 
 #### ***Input Image***
 
-![My image Name](assets/images/dep1_map.png)
+![My image Name](assets/images/depth_image.png)
 
 ![My image Name](assets/images/dep2.png)
 
