@@ -160,7 +160,17 @@ for i in range(video_height):
 
 #### Below we can see the reward return graph chart. Again the goal is for the agent to make it to the end with the minimal possible collisions. The agent gets rewarded on the basis of how difficult it is for it to reach each section. Each step taken, or obstacle hit incurs a penalty for the agent, incentivizing it to reach the end in the minimal possible number of steps and least possible collisions. The finish line after the stairs has the highest possible reward, since the ultimate goal is for the agent to reach the end of the stage, after accomplishing this it then tries to reduce the amount of steps taken, and minimizes the reward. 
 
-#### Here is the loss function which we can see converges towards zero as the agents step counts reach positive infinity.
+#### Here we can see a returns graph which increases consistently as the steps go up, and only go down after about 1300 steps perhaps due to overtraining:
+
+<img src="assets/images/returns_final.png" alt="My image Name" style="zoom:150%;" />
+
+#### Here we can see the loss function which increase untill about 1400 steps and begins to converge towards zero and the steps go on to positive infinity from there:
+
+<img src="assets/images/loss_final.png" alt="My image Name" style="zoom:100%;" />
+
+#### Here is our success graphs for how often the agent reaches the final redstone, after about 40 episodes the agent is able to reach the redstone without failure as the episodes go on:
+
+<img src="assets/images/success_graph.png" alt="My image Name" style="zoom:150%;" />
 
 ### **<u>Segmentation</u>**
 
