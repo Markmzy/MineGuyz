@@ -184,9 +184,13 @@ for i in range(video_height):
 
 #### The evaluation for the segmentation was done while training the residual neural network. During each epoch the accuracy was computed by utilizing the validation data, which we had reserved using an 80/20 training validation split. We also computed the loss after each epoch as well, to ensure that the agent was training properly. As you can see below are our loss and accuracy graphs. Whilst the loss does generally trend downwards, the accuracy tends to oscillate after recovering from a major dip downwards, this is perhaps due to the low resolution of our training images, and limited hardware resources with regards to how much data we can provide to the network and for how long we can train.
 
+#### Here we can see a loss graph for the residual neural net as training goes on for segemenation, it converges till infinity as the epochs go on:
+
 #### ***Loss***
 
 ![My image Name](assets/images/loss_segmentation.png)
+
+#### Here we can see an accuracy graph as the amount of epoch increases, the accuracy intially osciallates for the first 15 epochs, after which it takes a nose dive and comes back up after about 40 epochs and continues to oscillate, this is again perhaps due to overtraining. Choosing a low amount of epochs would be optimal in this case:
 
 #### ***Accuracy***
 
