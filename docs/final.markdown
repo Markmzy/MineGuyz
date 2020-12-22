@@ -205,5 +205,5 @@ for i in range(video_height):
 5. [Residual Neural Nets in Pytorch](https://towardsdatascience.com/residual-network-implementing-resnet-a7da63c7b278)
 6. [Pytorch and Image Segmentation](https://www.learnopencv.com/pytorch-for-beginners-semantic-segmentation-using-torchvision/)
 7. [Depth Maps in Python](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_depthmap/py_depthmap.html)
-8. [Depth Maps in Python](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_depthmap/py_depthmap.html)
+8. [Book:Foundations of Deep Reinforcement Learning: Theory and Practice in Python](https://learning.oreilly.com/library/view/foundations-of-deep/9780135172490/)
 
