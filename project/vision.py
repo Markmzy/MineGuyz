@@ -8,63 +8,7 @@ import torchvision.transforms as transforms
 import  matplotlib.pyplot as plt
 import time
 
-GROUND_TRUTH = True
-
-class Cfg:
-    lr = 0.0001
-    workers = 2
-    batchSize = 2
-    imageSize = 64
-    n_epoch = 100
-    beta1 = 0.5
-    seed = 0
-    cuda = True
-    start_epo = 0
-    pretrain = False
-    nd_kpts = 6
-
-cfg = Cfg()
 device = torch.device("cpu")
-
-class Eyes:
-    def __init__(self):
-        self.net = segmentation.deeplabv3_resnet50(num_classes=5).to(device)
-        self.net.train()
-        self.net.eval()
-        if cfg.pretrain:
-            self.net.load_state_dict(torch.load("./juypter_notebooks/saved_weights/vision_parameters.wts"))
-    def get_result(self,img):
-        return torch.argmax(self.net(img.to(device))['out'], dim=1)
-
-def img_preprocessing(img,dep,eyes,device,size=(512,512)):
-    img = img.resize(size)
-    dep = dep.resize(size)
-    transform1 = transforms.Compose([transforms.ToTensor()])
-    tensor_img = transform1(img).reshape((1,3,size[0],size[1]))
-    seg_img = eyes.get_result(tensor_img).reshape((1,1,size[0],size[1])).float()
-    seg_img_show = seg_img[0][0].cpu().numpy()
-    plt.clf()
-    plt.imshow(seg_img_show)
-    plt.draw()
-    plt.pause(0.001)
-    dep_img = transform1(dep).reshape((1,1,size[0],size[1]))
-    result_tensor = torch.cat((tensor_img.to(device), dep_img.to(device)), 1)
-    result_tensor = torch.cat((result_tensor, seg_img), 1)
-    return result_tensor
-
-def frame_process(frame_list:bytearray,video_width,video_height,size=(512,512)):
-    int_list = list(frame_list)
-    img_o = np.array(int_list).reshape((video_width,video_height,4))
-    img = img_o[:,:,:3]
-    depth = img_o[:,:,-1].reshape((512,-1))
-    image = Image.fromarray(img.astype('uint8'), 'RGB').resize(size)
-    depth = Image.fromarray(depth.astype('uint8'), 'L').resize(size)
-    return image,depth
-
-def get_img(world_state,frame,agent_obj,eyes,device,video_width,video_height):
-    img,dep = frame_process(frame,video_width,video_height)
-    input_img = img_preprocessing(img,dep,eyes,device).to(device)
-    return input_img
 
 def clear_images():
     shutil.rmtree('./images')
