@@ -75,7 +75,6 @@ permalink: /status/
 &ensp;<img src="https://render.githubusercontent.com/render/math?math=R(s)=  -1\hspace{0.4cm} \text{Agent touches the Pink wool or the ground for initial state}">
 &ensp;<img src="https://render.githubusercontent.com/render/math?math=R(s)=    1\hspace{0.4cm} \text{Every time the agent passes a quarter of the distance on the map vertically toward the finish line}">
 
-
 <br /> 
 
 
@@ -151,4 +150,8 @@ Lastly another challenge that we might face in the multi agent implementation. W
 1. [Policy Gradient Reinforcement Learning in Pytorch](https://medium.com/@ts1829/policy-gradient-reinforcement-learning-in-pytorch-df1383ea0baf)
 2. [Building a DQN in Pytorch](https://blog.gofynd.com/building-a-deep-q-network-in-pytorch-fa1086aa5435)
 3. [Pytorch Reinforcement Learning](https://github.com/bentrevett/pytorch-rl)
-4. [How does the Bellman equation work in Deep RL](https://towardsdatascience.com/how-the-bellman-equation-works-in-deep-reinforcement-learning-5301fe41b25a)
+4. [How does the Bellman equation work in Deep RL](https://towardsdatascience.com/residual-network-implementing-resnet-a7da63c7b278)
+5. [Residual Neural Nets in Pytorch](https://towardsdatascience.com/residual-network-implementing-resnet-a7da63c7b278)
+6. [Pytorch and Image Segmentation](https://www.learnopencv.com/pytorch-for-beginners-semantic-segmentation-using-torchvision/)
+7. [Depth Maps in Python](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_depthmap/py_depthmap.html)
+
