@@ -193,6 +193,19 @@ for i in range(video_height):
 
 <br />
 
+### <u>Depth Map</u>
+
+#### *Quantitative*
+
+#### The depth map's quantitative measure was based on plotting the image's disparity map and comparing it to the original image. The assessment was based on the structural distortion between the two images. Additionally, the comparison was made to specific non-related examples of the ground truth disparity images and evaluated accordingly. We used a method known as Bad Matched Pixels (BMP) to assess the number of differences between the estimated disparity values and image values that exceed the threshold. The advantage of utilizing the BMP is that it ignores the inverse relation between depth and disparity. The following figure demonstrates the points matched. 
+
+
+![My image Name](assets/images/feature_matching.jpg)
+
+
+#### *Qualitative*
+
+
 ## **References**
 
 #### The resources utilized so far have been using Malmo’s API to simulate the environment and Pytroch for creating tensors, neural networks, and optimizers. Certain functionalities from assignment that were useful were derived for this project. The following resources were used to develop implementations or to develop ideas.
