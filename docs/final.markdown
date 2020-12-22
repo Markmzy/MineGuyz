@@ -15,11 +15,10 @@ Todo
 #### The goal is for an agent to participate and guide itself to reach the mini-games finish line in a free-for-all struggle. The mini-game generated is designed with vibrant aesthetics consisting of multiple courses with an added complexity. Each course has distinguished obstacles and a unique set of actions to be utilized by the agent to achieve the optimal result. The agent has access to four controls or actions: move forward, move left, move right, and jump. The map begins with the agent encountering overwhelming stacked blocks with associated negative reinforcement given if the agent touches it. The map follows with additional stages containing a bridge over water, a massive staircase, and colossal cubes that block the right side of the path. These obstacles within each course are generated randomly upon the beginning of each episode.  All the obstacles and the surrounding glass guarding the entire field have a negative reinforcement that is small, numerically speaking, relative to the positive reinforcement of the redstone block at the end map. By touching the redstone, which represents the finish line, the agent receives a substantial reinforcement. This results in the agent learning that the best outcome is to reach the finish line by encountering the least number of obstacles on the courses, ultimately maximizing the reward. There are two embedded factors within the agent's goal; initially, the agent needs to learn to reach the finish line at any cost and then learn to acquire far more quickly than the previous iterations. 
 
 
+#### The problem is not particularly trivial to solve using greedy or brute force algorithms or some form of scripted method because the map is complex, but additionally, the obstacles are generated randomly, making it impossible to use a discrete algorithm to solve such a stochastic problem. AI/ML algorithms are beneficial in this specific context since it can learn and improve from experience over time. This allows the agent to take more practical actions in less predictable dynamic environments. Utilizing a reinforcement learning algorithm provides the agent a framework or language to model the game's complex system as generically as possible. Moreover, using computer vision techniques such as depth map and segmentation provides the agent with pattern recognition ability to distinguish between a set of phenomenons or things within the game. 
+
 
 ![My image Name](assets/images/aeriel.png)
-
-
-#### The problem is not particularly trivial to solve using greedy or brute force algorithms or some form of scripted method because the map is complex, but additionally, the obstacles are generated randomly, making it impossible to use a discrete algorithm to solve such a stochastic problem. AI/ML algorithms are beneficial in this specific context since it can learn and improve from experience over time. This allows the agent to take more practical actions in less predictable dynamic environments. Utilizing a reinforcement learning algorithm provides the agent a framework or language to model the game's complex system as generically as possible. Moreover, using computer vision techniques such as depth map and segmentation provides the agent with pattern recognition ability to distinguish between a set of phenomenons or things within the game. 
 
 <br />
 
@@ -53,7 +52,7 @@ Todo
 1. Moving south (Forward)
 2. Moving west (Left Horizontally)
 3. Moving east (Right Horizontally) 
-4. Jump (Up)
+4. Jump Move (Up)
 ```
 ##### **The state space is the following:**
 
@@ -85,7 +84,7 @@ Todo
 
 <br />
 
-![My image Name](assets/images/fig_approach.png)
+#### The architecture of the Q-network is based on a convolutional neural network that takes the observation tensor's first index and then outputs the action size. The network is predicting the expected return of each specific action for the given input. When deciding which action to take, the epsilon greedy policy is utilized where partly, the model selects the action. At the early stages,  the actions are chosen by the random probability for exploration by starting with the hyperparameter epsilon start and decaying toward the epsilon end. The epsilon decay hyperparameter specifies how to manage the rate. The reinforcement learning algorithms pipeline begins where random or epsilon greedy action is an input to the Malmo environment where the next step is returned. The results are then recorded in the replay memory, and optimization is implemented on every iteration where random batches from replay memory are selected for the new policy training. One of the disadvantages of using a deep Q-network is that using a small action space is not sufficient to have the agent behave as desired. Additionally, this method's significant drawback is that training is slow since it converges with hard updates for the weights. 
 
 
 ### <u>Depth Map</u>	
@@ -96,10 +95,17 @@ Todo
 
 ![My image Name](assets/images/depth_image.png)
 
+![My image Name](assets/images/dep2.png)
+
+![My image Name](assets/images/dep4.png)
+
 #### *Depth Map*
 
 ![My image Name](assets/images/depth_map.jpg)
 
+![My image Name](assets/images/dep2_map.JPG)
+
+![My image Name](assets/images/dep4_map.JPG)
 <br />
 
 ### <u>Segmenation</u>
@@ -199,4 +205,5 @@ for i in range(video_height):
 5. [Residual Neural Nets in Pytorch](https://towardsdatascience.com/residual-network-implementing-resnet-a7da63c7b278)
 6. [Pytorch and Image Segmentation](https://www.learnopencv.com/pytorch-for-beginners-semantic-segmentation-using-torchvision/)
 7. [Depth Maps in Python](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_depthmap/py_depthmap.html)
+8. [Depth Maps in Python](https://opencv-python-tutroals.readthedocs.io/en/latest/py_tutorials/py_calib3d/py_depthmap/py_depthmap.html)
 
