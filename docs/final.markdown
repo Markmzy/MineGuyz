@@ -93,7 +93,7 @@ Todo
 
 #### ***Input Image***
 
-![My image Name](assets/images/depth_image.png)
+
 
 ![My image Name](assets/images/dep2.png)
 
@@ -101,7 +101,7 @@ Todo
 
 #### *Depth Map*
 
-![My image Name](assets/images/depth_map.jpg)
+
 
 ![My image Name](assets/images/dep2_map.JPG)
 
@@ -202,8 +202,17 @@ for i in range(video_height):
 
 ![My image Name](assets/images/feature_matching.jpg)
 
-
 #### *Qualitative*
+
+#### Via visual inspection we are able to get a good estimation of the accuracy of the depth map itself. A depth map creates a gradient of shades that either get lighter or darker depending on the distance from the focal point. By looking at the test images we can see whether or not the depth map is accurately conforming to the image itself. Based upon the image below we can see our implementation of the depth map is fairly effective with the stairs and blocks being much darker, and the subsequent background being much lighter, because it is glass and thus is see through into the sky. We can also look at the difference between the right and the left side and see the difference in the shades, with the side of the blocks being much darker than the side that has just glass. 
+
+#### ***Input Image***
+
+![My image Name](assets/images/depth_image.png)
+
+#### *Depth Map*
+
+![My image Name](assets/images/depth_map.jpg)
 
 
 ## **References**
