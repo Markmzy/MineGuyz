@@ -153,13 +153,23 @@ for i in range(video_height):
 
 #### *Qualitative*
 
-#### The overall goal of the project is for the agent to make it to the end with a minimal amount of collisions as possible. During the initial first few episodes the agent gets stuck behind a few barriers and is unable to jump over obstacles separating the different stages. However after about episode 20 it begins to be able to jump over these barriers, and after about episode 30 it can easily go up the stairs no problem reaching the end and getting the max reward for finishing. After which the agent begins to seek to minimize the amount of steps it takes to reach to get to the end since there still is a small penalty for each step that is taken. The agent takes input from both the depth map and segmented image to make its decision for the first stage, and then utilizes surrounding observations and the depth map to make its decisions for the 2nd and 3rd stage.
+#### The overall goal of the project is for the agent to make it to the end with a minimal amount of collisions as possible. During the initial first few episodes the agent gets stuck behind a few barriers and is unable to jump over obstacles separating the different stages. However after about episode 15 it begins to be able to jump over these barriers, and after about episode 30 it can easily go up the stairs no problem reaching the end and getting the max reward for finishing. After which the agent begins to seek to minimize the amount of steps it takes to reach to get to the end since there still is a small penalty for each step that is taken. The agent takes input from both the depth map and segmented image to make its decision for the first stage, and then utilizes surrounding observations and the depth map to make its decisions for the 2nd and 3rd stage.
 
 #### *Quantitative*
 
-#### Below we can see the reward return graph chart. Again the goal is for the agent to make it to the end with the minimal possible collisions. The agent gets rewarded on the basis of how difficult it is for it to reach each section. Each step taken, or obstacle hit incurs a penalty for the agent, incentivizing it to reach the end in the minimal possible number of steps and least possible collisions. The finish line after the stairs has the highest possible reward, since the ultimate goal is for the agent to reach the end of the stage, after accomplishing this it then tries to reduce the amount of steps taken, and minimizes the reward. 
+#### Below we can see the reward return graph chart. Again the goal is for the agent to make it to the end with the minimal possible collisions. The agent gets rewarded on the basis of how difficult it is for it to reach each section. Each step taken, or obstacle hit incurs a penalty for the agent, incentivizing it to reach the end in the minimal possible number of steps and least possible collisions. The finish line after the stairs has the highest possible reward, since the ultimate goal is for the agent to reach the end of the stage, after accomplishing this it then tries to reduce the amount of steps taken, and minimizes the reward.  Base on the rewards graph we can see as the steps go up so does the reward, however after about 1400 steps th return starts to go down, this is perhaps due to over training.
 
-#### Here is the loss function which we can see converges towards zero as the agents step counts reach positive infinity.
+#### Here is the returns graph as the steps increase:
+
+<img src="assets/images/returns_final.png" alt="My image Name" style="zoom:150%;" />
+
+#### Here is the loss function which we can see increases until 1600 steps but then begins to converge to zero as steps go to infinity:
+
+![My image Name](assets/images/loss_final.png)
+
+#### Here is a graph of success as the agent is trained after about 45 episodes the agent is able to make it to the redstone consistently:
+
+<img src="assets/images/success_graph.png" alt="My image Name" style="zoom:150%;" />
 
 ### <u>Segmentation</u>
 
