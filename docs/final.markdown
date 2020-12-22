@@ -162,15 +162,21 @@ for i in range(video_height):
 
 #### Here we can see a returns graph which increases consistently as the steps go up, and only go down after about 1300 steps perhaps due to overtraining:
 
-<img src="assets/images/returns_final.png" alt="My image Name" style="zoom:150%;" />
+![My image Name](assets/images/returns_final.png)
+
+
 
 #### Here we can see the loss function which increase untill about 1400 steps and begins to converge towards zero and the steps go on to positive infinity from there:
 
-<img src="assets/images/loss_final.png" alt="My image Name" style="zoom:100%;" />
+![My image Name](assets/images/loss_final.png)
+
+
 
 #### Here is our success graphs for how often the agent reaches the final redstone, after about 40 episodes the agent is able to reach the redstone without failure as the episodes go on:
 
-<img src="assets/images/success_graph.png" alt="My image Name" style="zoom:150%;" />
+![My image Name](assets/images/success_graph.png)
+
+
 
 ### **<u>Segmentation</u>**
 
