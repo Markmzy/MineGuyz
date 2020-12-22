@@ -173,7 +173,13 @@ for i in range(video_height):
 
 #### The qualitative assement of the segmentation algorithm was done mainly via inspection, and comparing the segmented image produced by the neural net to what we can see for ourselves in the training data. Generally speaking the images looked better as the training went on with the edges getting crisper and more defined and the blocks being better distinguished from their surroundings. However, due to the variety of colors in our maps, we did experience a good amount of noise that caused the defintions of the blocks to be fuzzier than ideal. Further, more computational restrictions on training time added to not allowing us to train our network to be accurate as we would have liked.
 
-#### Post Training Image* 
+#### Pre Training Image
+
+![My image Name](assets/images/post_train_one.png)
+
+![My image Name](assets/images/pre_train_one.png)
+
+#### Post Training Image 
 
 ![My image Name](assets/images/post_train_one.png)
 
