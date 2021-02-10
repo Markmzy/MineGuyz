@@ -8,7 +8,7 @@ permalink: /status/
 
 ### Video
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/SaT4Ns7_akk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://youtu.be/gO7Sl99GDOo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <br />
 ### Summary 
 
